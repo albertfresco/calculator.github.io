@@ -125,7 +125,8 @@ box-shadow: 0px 3px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.2);
        this.memory.push(this.short_memory);
        console.log('value of array: ',this.memory);
        console.log('length of array: ',this.memory.length);
-       for (let i=0; i <= this.memory.length; i++){    
+       for (let i=0; i <= this.memory.length; i++){   
+
             //for addition or array for symbols[0]
             if(this.memory[i] === this.symbols[0]){
                 console.log('this is num1:', this.memory[i-1]);
@@ -135,8 +136,8 @@ box-shadow: 0px 3px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.2);
                 document.calc.screen.value = answer; 
                 this.short_memory = answer;
                 console.log('result: '+answer);
-            
               }
+
               //for subtraction or array for symbols[1]
               if(this.memory[i] === this.symbols[1]){
                 console.log('this is num1:', this.memory[i-1]);
@@ -146,8 +147,8 @@ box-shadow: 0px 3px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.2);
                   document.calc.screen.value = answer; 
                   this.short_memory = answer;
                   console.log('result: '+answer);
-                 
               }
+
               //for multiplacation or array for symbols[2]
               if(this.memory[i] === this.symbols[2]){
                 console.log('this is num1:', this.memory[i-1]);
@@ -157,8 +158,8 @@ box-shadow: 0px 3px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.2);
                   document.calc.screen.value = answer; 
                   this.short_memory = answer;
                   console.log('result: '+answer);
-              
               }
+
               //for division or array for symbols[3]
               if(this.memory[i] === this.symbols[3]){
                 console.log('this is num1:', this.memory[i-1]);
