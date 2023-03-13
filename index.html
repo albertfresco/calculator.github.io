@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    input[type=button] 
+{
+  display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    background-color: #538fbe;
+    margin:10px ;
+    font-size: 16px;
+    border: 1px solid #2d6898;
+    width:50px;
+    text-align:center;
+     background-image: linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    -webkit-box-shadow: 0px 3px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.2);
+-moz-box-shadow: 0px 3px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.2);
+box-shadow: 0px 3px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.2);
+}
+    </style>
+</head>
+<body>
+      <form name="calc">
+        <table border="2">
+            <tr>
+                <td align="center">
+                    <input type="text" id="screen" name="screen" style="width:99%">
+                    <br/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" name="c" value="  C  " onclick="calculator.reset();">
+                    <input type="button" name="c" value="    " onclick="">
+                    <input type="button" name="c" value="    " onclick="">
+                    <input type="button" id="op" name="op"  value="+" onclick="calculator.symbol(calculator.symbols[0]);">
+                    <br>
+                    <input type="button" name="7" value="  7  " onclick="calculator.display(calculator.numbers[7])">
+                    <input type="button" name="8" value="  8  " onclick="calculator.display(calculator.numbers[8])">
+                    <input type="button" name="9" value="  9  " onclick="calculator.display(calculator.numbers[9])">
+                    <input type="button" id="op" name="op"  value="-" onclick="calculator.symbol(calculator.symbols[1]);">
+                   
+                    <br>
+                    <input type="button" name="4" value="  4  " onclick="calculator.display(calculator.numbers[4])">
+                    <input type="button" name="5" value="  5  " onclick="calculator.display(calculator.numbers[5])">
+                    <input type="button" name="6" value="  6  " onclick="calculator.display(calculator.numbers[6])">
+                    <input type="button" id="op" name="op"  value="x" onclick="calculator.symbol(calculator.symbols[2]);">
+                   
+                    <br>
+                    <input type="button" name="1" value="  1  " onclick="calculator.display(calculator.numbers[1])">
+                    <input type="button" name="2" value="  2  " onclick="calculator.display(calculator.numbers[2])">
+                    <input type="button" name="3" value="  3  " onclick="calculator.display(calculator.numbers[3])">
+                    <input type="button" id="op" name="op"  value="/" onclick="calculator.symbol(calculator.symbols[3]);">
+                    <br>
+                   
+                    <input type="button" name="0" value="  0  " onclick="calculator.display(calculator.numbers[0])">
+                    <input type="button" name="0" value="  00  " onclick="calculator.display(calculator.double0[00])">
+                    <input type="button" name="=" value=" .  " onclick="calculator.display(calculator.decimal[0])">
+                    <input type="button" name="=" value="  =  " onclick="calculator.result()">
+                  
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+
+
+//object calculator
+ const calculator={   
+     numbers: [0,1,2,3,4,5,6,7,8,9],
+     symbols: ['+','-','*','/','='],
+     decimal: ['.'],
+     double0: ['00'],
+ 
+     memory:[], // for array container
+     short_memory: '', //for input container
+
+    //for getting the input in the screen
+     display:  function(x)//display property function
+     {
+            document.calc.screen.value += x;
+            this.short_memory += x;
+            console.log('input checking:', this.short_memory);
+          
+            },
+            
+        // for checking the symbols used if it entered the array
+     symbol: function(x) //symbol property function
+     {
+         document.calc.screen.value += x;
+         this.memory.push(this.short_memory);
+         this.memory.push(x);
+         this.short_memory= '';
+         console.log('check if symbol is push to array: ',this.memory);
+         console.log('symbol input checking:', this.memory[1]);
+    
+     },
+     
+
+
+     reset: function() //reset property function
+     {
+        document.calc.screen.value = ''; //for replacing the screen value to 0 or null
+        this.short_memory = '';//for removing the data or replacing it to 0 or null
+        this.memory = ['']; 
+        console.log('data checking if removed; ', this.memory);
+        console.log('input checking: ', this.short_memory);
+       
+     },       
+     
+     result: function() //result property function
+     {
+
+       this.memory.push(this.short_memory);
+       console.log('value of array: ',this.memory);
+       console.log('length of array: ',this.memory.length);
+       for (let i=0; i <= this.memory.length; i++){    
+            //for addition or array for symbols[0]
+            if(this.memory[i] === this.symbols[0]){
+                console.log('this is num1:', this.memory[i-1]);
+                console.log('symbol checker: ',this.memory[i]);
+                console.log('this is num2:', this.memory[i+1]);
+                let answer = Number(this.memory[i-1]) + Number(this.memory[i+1]);
+                document.calc.screen.value = answer; 
+                this.short_memory = answer;
+                console.log('result: '+answer);
+            
+              }
+              //for subtraction or array for symbols[1]
+              if(this.memory[i] === this.symbols[1]){
+                console.log('this is num1:', this.memory[i-1]);
+                console.log('symbol checker: ',this.memory[i]);
+                console.log('this is num2:', this.memory[i+1]);
+                let answer = Number(this.memory[i-1]) - Number(this.memory[i+1]);
+                  document.calc.screen.value = answer; 
+                  this.short_memory = answer;
+                  console.log('result: '+answer);
+                 
+              }
+              //for multiplacation or array for symbols[2]
+              if(this.memory[i] === this.symbols[2]){
+                console.log('this is num1:', this.memory[i-1]);
+                console.log('symbol checker: ',this.memory[i]);
+                console.log('this is num2:', this.memory[i+1]);
+                let answer = Number(this.memory[i-1]) * Number(this.memory[i+1]);
+                  document.calc.screen.value = answer; 
+                  this.short_memory = answer;
+                  console.log('result: '+answer);
+              
+              }
+              //for division or array for symbols[3]
+              if(this.memory[i] === this.symbols[3]){
+                console.log('this is num1:', this.memory[i-1]);
+                console.log('symbol checker: ',this.memory[i]);
+                console.log('this is num2:', this.memory[i+1]);
+                let answer = Number(this.memory[i-1]) / Number(this.memory[i+1]);
+                  document.calc.screen.value = answer; 
+                  this.short_memory = answer;
+                  console.log('result: '+answer);
+                  
+              }
+        };
+    }
+
+}
+           
+    </script>
+</body>
+</html>
